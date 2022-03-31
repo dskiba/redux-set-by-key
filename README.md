@@ -1,2 +1,1 @@
-# redux-set-by-key
-redux: example of reducing verbosity 
+# redux example of reducing verbosity

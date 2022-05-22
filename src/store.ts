@@ -34,11 +34,6 @@ const { set } = userSlice.actions
 export const actionSet = actionSetCreator<IUser>(set)
 
 
-
-
-
-
-
 actionSet('name', 'john')
 // actionSet('age', '18')
 actionSet('age', 18)

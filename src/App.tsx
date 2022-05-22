@@ -21,7 +21,6 @@ export default function App() {
   return (
     <div className="App">
       <h1>Redux-toolkit example</h1>
-
       <label>
         name
         <input value={name} onChange={handleChange('name')} />
@@ -30,23 +29,18 @@ export default function App() {
         surname
         <input value={surname} onChange={handleChange('surname')} />
       </label>
-
       <label>
         age
         <input value={age} onChange={handleChange('age')} />
       </label>
-
-
       <label>
         country
         <input value={country} onChange={handleChange('country')} />
       </label>
-
       <label>
         city
         <input value={city} onChange={handleChange('city')} />
       </label>
-
       <label>
         hobbies
         <input value={hobbies} onChange={handleChange('hobbies')} />

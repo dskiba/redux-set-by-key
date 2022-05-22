@@ -1,39 +1,62 @@
+import type { PreloadedState } from '@reduxjs/toolkit'
+import { combineReducers, configureStore, createSlice } from '@reduxjs/toolkit'
+import { actionSetCreator, setCreator } from './utils'
+
 export interface IUser {
   name: string
   surname: string
+  age: number
   country: string
   city: string
   hobbies: string
+  employed: boolean
 }
 
 const initialState: IUser = {
   name: 'John',
   surname: 'Doe',
+  age: 18,
   country: 'US',
   city: 'New-York',
-  hobbies: ''
+  hobbies: '',
+  employed: false
 }
 
-type TRootState = {
-  user: IUser
-}
-
-const SET_BY_KEY = 'user/set_by_key'
-
-const setByKey = <K extends keyof IUser>(k: K, v: IUser[K]) => ({ type: SET_BY_KEY, payload: { k, v } })
-export const actionSeyByKey = <K extends keyof IUser>(k: K, v: IUser[K]) => setByKey(k, v)
-
-type TUserActions = ReturnType<typeof setByKey>
-
-export const userReducer = (state: IUser = initialState, action: TUserActions) => {
-  switch (action.type) {
-    case (SET_BY_KEY): {
-      const { k, v } = action.payload
-      return { ...state, [k]: v }
-    }
-    default:
-      return state
+const userReducerName = 'user' as const
+export const userSlice = createSlice({
+  name: userReducerName,
+  initialState,
+  reducers: {
+    set: setCreator<typeof initialState>()
   }
+})
+const { set } = userSlice.actions
+export const actionSet = actionSetCreator<IUser>(set)
+
+
+
+
+
+
+
+actionSet('name', 'john')
+// actionSet('age', '18')
+actionSet('age', 18)
+// actionSet('employed', 'true')
+actionSet('employed', true)
+
+
+const rootReducer = combineReducers({
+  user: userSlice.reducer
+})
+export const setupStore = (preloadedState?: PreloadedState<TRootState>) => {
+  return configureStore({
+    reducer: rootReducer,
+    preloadedState
+  })
 }
 
-export const selectUserField = (key: keyof IUser) => (state: TRootState) => state.user[key]
+export type TRootState = ReturnType<typeof rootReducer>;
+
+export const selectUserField = <K extends keyof IUser>(key: K) => (state: TRootState) => state.user[key]
+

@@ -1,11 +1,12 @@
 import './styles.css'
 import { useDispatch, useSelector } from 'react-redux'
 import React from 'react'
-import { actionSeyByKey, IUser, selectUserField } from './store'
+import { actionSet, IUser, selectUserField } from './store'
 
 export default function App() {
   const name = useSelector(selectUserField('name'))
   const surname = useSelector(selectUserField('surname'))
+  const age = useSelector(selectUserField('age'))
   const country = useSelector(selectUserField('country'))
   const city = useSelector(selectUserField('city'))
   const hobbies = useSelector(selectUserField('hobbies'))
@@ -14,7 +15,7 @@ export default function App() {
 
   const handleChange = (field: keyof IUser) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target
-    dispatch(actionSeyByKey(field, value))
+    dispatch(actionSet(field, value))
   }
 
   return (
@@ -29,6 +30,12 @@ export default function App() {
         surname
         <input value={surname} onChange={handleChange('surname')} />
       </label>
+
+      <label>
+        age
+        <input value={age} onChange={handleChange('age')} />
+      </label>
+
 
       <label>
         country

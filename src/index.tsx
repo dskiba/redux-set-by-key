@@ -1,16 +1,11 @@
 import { render } from 'react-dom'
-import { Provider } from 'react-redux'
+import { Provider, } from 'react-redux'
 
 import App from './App'
-import { combineReducers, createStore } from 'redux'
-import { userReducer } from './store'
+import { setupStore } from './store'
 
 
-const reducers = combineReducers({
-  user: userReducer
-})
-
-export const store = createStore(reducers)
+export const store = setupStore()
 
 const rootElement = document.getElementById('root')
 render(
@@ -19,3 +14,4 @@ render(
   </Provider>,
   rootElement
 )
+
